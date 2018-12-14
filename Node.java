@@ -2,8 +2,10 @@ private class Node{
  private int data;
  private Node next,prev;
 
- public Node(data) {
-   data = this.data;
+ public Node(Integer value, Node nex, Node pre) {
+   data = value;
+   next = nex;
+   prev = pre;   
  }
 
 private Node next(){
@@ -15,27 +17,24 @@ private Node prev(){
 }
 
 private void setNext(Node other){
-
+  next = other;
 }
+
 private void setPrev(Node other){
-
+  prev = other;
 }
+
 private Integer getData() {
   return data;
 }
 
 private Integer setData(Integer i) {
-
+  Integer temp = data;
+  data = i;
+  return temp;
 }
 
 public String toString() {
-  Node current = first_node;
-while (current != null) {
-  System.out.println(current.value());
-  current = current.next();
+  return "" + data;
 }
-}
-
-
-
 }
