@@ -35,16 +35,36 @@ public class MyLinkedList{
 
  }
  public boolean contains(Integer value){
-   Node x;
-   for (int i = 0; i < length; i++) {
-     x = new Node(length, end, start);
-     return x.contains(value);
+   Node current = start;
+   while (current != null) {
+     if (current.value() = value) {
+       return true;
+     }
+     current = current.next();
    }
+   return false;
  }
- public int indexOf(Integer value){
 
+ public int indexOf(Integer value){
+   Node current = start;
+   int index = 0;
+   while (current != null) {
+     if (current.next() == value) {
+       return index;
+     }
+     current = current.next();
+     //advances into the next array.
+     index++;
+   }
+   return -1;
+   //returns -1 if it's not in the nodes.
  }
+
  public Integer remove(int index) {
+   if (size() == 1) {
+     start = null;
+     end = null;
+   }
 
  }
  public boolean remove(Integer value) {
@@ -73,7 +93,7 @@ public class MyLinkedList{
        return start.getData();
      }
      else {
-       x = (index, end, start)
+       x = (index, end, start);
 
      }
    }
