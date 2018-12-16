@@ -87,16 +87,17 @@ public class MyLinkedList{
    if (index < 0 || index >= length) {
      throw new IndexOutOfBoundsException("Index less than 0, or greater than/equal to size.");
    }
-   Node current = start;
-   for (int x = 0; x < length; x++) {
-     if (x = index){
-       return start.getData();
-     }
-     else {
-       x = (index, end, start);
-
+   Node current start;
+   int nod = 0;
+   if (current != null) {
+     while (nod < index) {
+       current = current.next();
+       nod++;
      }
    }
+   return current;
+ }
+
 
 
 
