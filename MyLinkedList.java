@@ -7,7 +7,7 @@ public class MyLinkedList{
  }
 
  public int size() {
-   return size;
+   return length;
  }
 
  public boolean add(int value) {
@@ -28,11 +28,40 @@ public class MyLinkedList{
    length++;
    return false;
  }
+ return true;
 }
 
- public void add(int index,Integer value){
+private Node getNthNode(int value) {
+  Node result = start;
+  for (int i = 0; i < value; i++) {
+    result = result.next();
+  }
+  return result;
+}
+//I knew I needed a way for me to flip nodes using a for loop. However, I couldn't use for loops for every function.
+//So I found out about the idea of using a helper function from a friend!
 
-
+ public void add(int index, Integer value){
+   if (index < 0 || index > length) {
+     throw new IndexOutOfBoundsException("Index less than 0, or greater than/equal to size.");
+   }
+   Node current;
+   Node x = new Node(value, null, null);
+   if (index == 0) {
+     n.setPrev(null);
+     n.setNext(getNthNode(0));
+     start = n;
+     length++;
+   }
+   else {
+     Node next = getNthNode(index);
+     Node prev = getNthNode(index - 1);
+     n.setPrev(prev);
+     n.setNext(next);
+     prev.setNext(n);
+     next.setPrev(n);
+     length++;
+   }
  }
  public boolean contains(Integer value){
    Node current = start;
@@ -61,17 +90,46 @@ public class MyLinkedList{
  }
 
  public Integer remove(int index) {
-   if (size() == 1) {
-     start = null;
-     end = null;
+   if (index < 0 || index >= length) {
+     throw new IndexOutOfBoundsException("Index is less than 0/index is greater or equal to length.")
    }
+   Node n = getNthNode(index);
+   Node prev, next;
+   Integer old = n.getData();
+   if (index == 0) {
+      next = n.next();
+      next.setPrev(null);
+      start = next;
+      length--;
+    }
+    else if (index == length-1) {
+      prev = n.prev();
+      prev.setNext(null);
+      end = prev;
+      length--;
+    }
+    else {
+      prev = getNthNode(index-1);
+      next = getNthNode(index+1);
+      prev.setNext(next);
+      next.setPrev(prev);
+      length--;
+    }
+    return old;
+  }
 
  }
  public boolean remove(Integer value) {
+   if (contains(value)) {
+     remove(indexOf(value));
+     return true;
+   }
+   return false;
+   }
+   //Wow this method uses every other function and it's so simple!!
 
- }
  public String toString() {
-   if (size == 0) {
+   if (length == 0) {
      return "[]";
    }
    String result = "["
@@ -84,27 +142,18 @@ public class MyLinkedList{
 }
 
  public Integer get(int index) {
-   if (index < 0 || index >= length) {
+   if (index < 0 || index >= length {
      throw new IndexOutOfBoundsException("Index less than 0, or greater than/equal to size.");
    }
-   Node current start;
-   int nod = 0;
-   if (current != null) {
-     while (nod < index) {
-       current = current.next();
-       nod++;
-     }
-   }
-   return current;
+   return getNthNode(index).getData();
  }
 
-
-
-
-
- }
 
  public Integer set(int index, Integer value) {
+   if ((index < 0 || index >= length) {
+     throw new IndexOutOfBoundsException("Index less than 0 or greater than/equal to size.");
+   }
+   Integer old = get(index).value();
 
  }
 }
