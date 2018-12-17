@@ -52,16 +52,13 @@ private Node getNthNode(int value) {
       start.setPrev(x);
       start = x;
       length++;
+      return;
       //if you're adding to the first element. make start equal to next and set start as prev.
     }
-    if (size() < 0) {
-      start = x;
-      length++;
-      //if it's less than 0, make it so that it adds to the first node then increment length.
-    }
-    if (index == size()) {
-      //figured out that there is a time where if the length is equal it would pass off as an exception. Wrong!
+    if (index == this.size()) {
       add(value);
+      return;
+      //if index is equal to the length. We add to the end.
     }
     else {
       Node current = getNthNode(index);
@@ -73,9 +70,11 @@ private Node getNthNode(int value) {
       x.setPrev(before);
       x.setNext(current);
       length++;
+      return;
       //increment length.
     }
   }
+
 
  public boolean contains(Integer value){
    Node current = start;
