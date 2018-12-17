@@ -44,47 +44,45 @@ private Node getNthNode(int value) {
    if (index < 0 || index > length) {
      throw new IndexOutOfBoundsException(/*"Index less than 0, or greater than/equal to size."*/);
    }
-   Node current;
-   Node x = new Node(value, null, null);
-   if (index == 0) {
-     x.setPrev(null);
-     x.setNext(getNthNode(0));
-     start = x;
-     length++;
-   }
-   else {
-     Node next = getNthNode(index);
-     Node prev = getNthNode(index - 1);
-     x.setPrev(prev);
-     x.setNext(next);
-     prev.setNext(x);
-     next.setPrev(x);
-     length++;
-   }
- }
+   Node x = new Node(value,null,null);
+    if(index == 0){
+      x.setNext(start);
+      start.setPrev(x);
+      start = x;
+      length++;
+    } else {
+      Node current = getNthNode(index);
+      Node before = current.prev();
+      before.setNext(x);
+      current.setPrev(x);
+      x.setPrev(before);
+      x.setNext(current);
+      length++;
+    }
+  }
+
  public boolean contains(Integer value){
    Node current = start;
    while (current != null) {
-     if (current.getData() == value) {
+     if (current.getData() == value)
        return true;
-     }
      current = current.next();
    }
    return false;
  }
 
  public int indexOf(Integer value){
-   Node current = start;
-   int index = 0;
-   while (current != null) {
-     if (current.getData() == value) {
-       return index;
-     }
-     current = current.next();
-     //advances into the next array.
-     index++;
+   if (contains(value)) {
+     Node current = start;
+     int index = 0;
+   while (current.getData() != value) {
+    index++;
+    //if it's not the value then just move to next node.
+    current = current.next();
    }
-   return -1;
+   return index;
+ }
+ return -1;
    //returns -1 if it's not in the nodes.
  }
 
@@ -92,8 +90,31 @@ private Node getNthNode(int value) {
    if (index < 0 || index >= length) {
      throw new IndexOutOfBoundsException(/*"Index is less than 0/index is greater or equal to length."*/);
    }
+   Node current = getNthNode(index);
+   if (end == current) {
+     Node pre = current.prev();
+     pre.setNext(null);
+     end = pre;
+     length--;
+     return current.getData();
+   }  else {
+   if (current == start) {
+     Node nex = current.next();
+     nex.setPrev(null);
+     start = nex;
+     length--;
+   } else {
+     Node pre = current.prev();
+     Node nex = current.next();
+     pre.setNext(nex);
+     pre.setPrev(pre);
+     length--;
+   }
+ }
+   return current.getData();
+ }
 
- public boolean remove(Integer value) {
+ private boolean remove(Integer value) {
    if (contains(value)) {
      remove(indexOf(value));
      return true;
@@ -101,6 +122,7 @@ private Node getNthNode(int value) {
    return false;
    }
    //Wow this method uses every other function and it's so simple!!
+
 
  public String toString() {
    if (length == 0) {

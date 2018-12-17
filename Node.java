@@ -1,9 +1,9 @@
-private class Node{
- private int data;
- private Node next,prev;
+public class Node{
+ Integer data;
+ Node next,prev;
 
-public Node(Intger value) {
-  data = value;
+public Node() {
+  data = null;
   //another constructor was made because it could give you a data but not anything else.
 }
  public Node(Integer value, Node nex, Node pre) {
@@ -46,6 +46,6 @@ public Integer setData(Integer i) {
 }
 
 public String toString() {
-  return " " + data;
+  return "" + data;
 }
 }
