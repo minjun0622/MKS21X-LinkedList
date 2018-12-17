@@ -151,11 +151,11 @@ public class Driver3 {
         System.out.println(list);
         System.out.println("This should print: [1, 2, 3, 4, 5, 6, 7]\n");
 
-        /*System.out.println("Adding to Last Element:");
+        System.out.println("Adding to Last Element:");
         list.add(7, new Integer(8));
         System.out.println(list);
         System.out.println("This should print: [1, 2, 3, 4, 5, 6, 7, 8]\n");
-        */
+        
         System.out.println("Adding to First Element:");
         list.add(0, new Integer(666));
         System.out.println(list);
