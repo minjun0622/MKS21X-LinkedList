@@ -1,6 +1,6 @@
 public class MyLinkedList{
- private int length;
- private Node start,end;
+ int length;
+ Node start,end;
 
  public MyLinkedList() {
    length = 0;
@@ -18,7 +18,7 @@ public class MyLinkedList{
    end = x;
    //there's only one node so!
    length++;
-   return false;
+   return true;
  }
  else {
    x = new Node(length, null, end);
@@ -26,9 +26,8 @@ public class MyLinkedList{
    //gets the nodes to open up the null for new node.
    end = x;
    length++;
-   return false;
+   return true;
  }
- return true;
 }
 
 private Node getNthNode(int value) {
@@ -43,30 +42,30 @@ private Node getNthNode(int value) {
 
  public void add(int index, Integer value){
    if (index < 0 || index > length) {
-     throw new IndexOutOfBoundsException("Index less than 0, or greater than/equal to size.");
+     throw new IndexOutOfBoundsException(/*"Index less than 0, or greater than/equal to size."*/);
    }
    Node current;
    Node x = new Node(value, null, null);
    if (index == 0) {
-     n.setPrev(null);
-     n.setNext(getNthNode(0));
-     start = n;
+     x.setPrev(null);
+     x.setNext(getNthNode(0));
+     start = x;
      length++;
    }
    else {
      Node next = getNthNode(index);
      Node prev = getNthNode(index - 1);
-     n.setPrev(prev);
-     n.setNext(next);
-     prev.setNext(n);
-     next.setPrev(n);
+     x.setPrev(prev);
+     x.setNext(next);
+     prev.setNext(x);
+     next.setPrev(x);
      length++;
    }
  }
  public boolean contains(Integer value){
    Node current = start;
    while (current != null) {
-     if (current.value() = value) {
+     if (current.getData() == value) {
        return true;
      }
      current = current.next();
@@ -78,7 +77,7 @@ private Node getNthNode(int value) {
    Node current = start;
    int index = 0;
    while (current != null) {
-     if (current.next() == value) {
+     if (current.getData() == value) {
        return index;
      }
      current = current.next();
@@ -91,34 +90,9 @@ private Node getNthNode(int value) {
 
  public Integer remove(int index) {
    if (index < 0 || index >= length) {
-     throw new IndexOutOfBoundsException("Index is less than 0/index is greater or equal to length.")
+     throw new IndexOutOfBoundsException(/*"Index is less than 0/index is greater or equal to length."*/);
    }
-   Node n = getNthNode(index);
-   Node prev, next;
-   Integer old = n.getData();
-   if (index == 0) {
-      next = n.next();
-      next.setPrev(null);
-      start = next;
-      length--;
-    }
-    else if (index == length-1) {
-      prev = n.prev();
-      prev.setNext(null);
-      end = prev;
-      length--;
-    }
-    else {
-      prev = getNthNode(index-1);
-      next = getNthNode(index+1);
-      prev.setNext(next);
-      next.setPrev(prev);
-      length--;
-    }
-    return old;
-  }
 
- }
  public boolean remove(Integer value) {
    if (contains(value)) {
      remove(indexOf(value));
@@ -132,28 +106,30 @@ private Node getNthNode(int value) {
    if (length == 0) {
      return "[]";
    }
-   String result = "["
+   String result = "[";
    Node current = start;
-   while (current != null) {
+   while (current.next() != null) {
      result += current.getData() + ", ";
      current = current.next();
  }
- return result + current.getData() + "]";
+ result += current.getData() + "]";
+ return result;
 }
 
  public Integer get(int index) {
-   if (index < 0 || index >= length {
-     throw new IndexOutOfBoundsException("Index less than 0, or greater than/equal to size.");
+   if (index < 0 || index >= length) {
+     throw new IndexOutOfBoundsException(/*"Index less than 0, or greater than/equal to size."*/);
    }
    return getNthNode(index).getData();
  }
 
 
  public Integer set(int index, Integer value) {
-   if ((index < 0 || index >= length) {
-     throw new IndexOutOfBoundsException("Index less than 0 or greater than/equal to size.");
+   if (index < 0 || index >= length) {
+     throw new IndexOutOfBoundsException(/*"Index less than 0 or greater than/equal to size."*/);
    }
-   Integer old = get(index).value();
-
+   Integer old = getNthNode(index).getData();
+   getNthNode(index).setData(value);
+   return old;
  }
 }
