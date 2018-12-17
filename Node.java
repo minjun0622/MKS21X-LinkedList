@@ -23,12 +23,12 @@ public Node prev(){
   //returns prev
 }
 
-private void setNext(Node other){
+public void setNext(Node other){
   next = other;
   //sets next
 }
 
-private void setPrev(Node other){
+public void setPrev(Node other){
   prev = other;
   //sets prev
 }
