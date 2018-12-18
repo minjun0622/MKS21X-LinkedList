@@ -47,8 +47,7 @@ private Node getNthNode(int value) {
      throw new IndexOutOfBoundsException(/*"Index less than 0, or greater than/equal to size."*/);
    }
    Node x = new Node(value,null,null);
-    if(index == 0){
-      if (size() > 0) {
+    if (index == 0){
       x.setNext(start);
       start.setPrev(x);
       start = x;
@@ -56,15 +55,11 @@ private Node getNthNode(int value) {
       return;
       //if you're adding to the first element. make start equal to next and set start as prev.
     }
-    else {
-      start = x;
-  }
-}
-    if (index == size()) {
+    if (index == length) {
       add(value);
       return;
+    }
       //if index is equal to the length. We add to the end.
-  }
     else {
       Node current = getNthNode(index);
       //using the helper function.
@@ -109,7 +104,7 @@ private Node getNthNode(int value) {
  }
 
  public Integer remove(int index) {
-   if (index < 0 || index >= length) {
+   if (index < 0 || index > length) {
      throw new IndexOutOfBoundsException(/*"Index is less than 0/index is greater or equal to length."*/);
    }
    Node current = getNthNode(index);
@@ -188,21 +183,27 @@ private Node getNthNode(int value) {
    return old;
    //returns the one set.
  }
+
  public void extend(MyLinkedList other){
-   /*
-   basically how this code works,
-   take the end of the first part of the list and
-   link it to the beginning of the second part of the list and add the length.
-   */
-   end.setNext(other.start);
-   //link the second part of list beginning with end of first list.
-   other.start.setPrev(end);
-   //link the end of the first with the start of second.
-   size += other.size();
-   //size is the size of the first list plus the second list.
-   end = end.other();
-   //end is the end of all the lists combined.
-   other.size()= 0;
+     end.setNext(other.start);
+     //set node a end to link to start of node b.
+     other.start.setPrev(end);
+     //set end of node a equal to start of node b.
+     length += other.size();
+     //length is length of a and b added together.
+     end = other.end;
+     //establishes a new end.
+     other.start = null;
+     //disappears
+     other.end = null;
+     //disappears
+     other.length = 0;
+     //set the length of other to 0.
+     
+   //basically how this code works,
+   //take the end of the first part of the list and
+   //link it to the beginning of the second part of the list and add the length.
+
    //size of other is reduced to 0.
         //in O(1) runtime, move the elements from other onto the end of this
         //The size of other is reduced to 0
