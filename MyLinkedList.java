@@ -176,15 +176,16 @@ private Node getNthNode(int value) {
    if (index < 0 || index >= length) {
      throw new IndexOutOfBoundsException(/*"Index less than 0 or greater than/equal to size."*/);
    }
-   Integer old = getNthNode(index).getData();
+   Node old = getNthNode(index);
    //make an old integer, get as a temporary variable
-   getNthNode(index).setData(value);
+   old.setData(value);
    //make the new where the old node used to be.
-   return old;
+   return old.getData();
    //returns the one set.
  }
 
  public void extend(MyLinkedList other){
+   if (other.size() != 0) {
      end.setNext(other.start);
      //set node a end to link to start of node b.
      other.start.setPrev(end);
@@ -193,13 +194,10 @@ private Node getNthNode(int value) {
      //length is length of a and b added together.
      end = other.end;
      //establishes a new end.
-     other.start = null;
-     //disappears
-     other.end = null;
-     //disappears
      other.length = 0;
      //set the length of other to 0.
-     
+   }
+
    //basically how this code works,
    //take the end of the first part of the list and
    //link it to the beginning of the second part of the list and add the length.
